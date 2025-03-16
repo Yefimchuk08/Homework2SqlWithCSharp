@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -23,22 +23,20 @@ namespace Homework2SqlWithCSharp
             modelBuilder.Entity<Client>()
                 .HasOne(c => c.Store)
                 .WithMany(s => s.Clients)
-                .HasForeignKey(c => c.StoreId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .HasForeignKey(c => c.StoreId);
+
 
             modelBuilder.Entity<Product>()
                 .HasOne(p => p.Client)
                 .WithMany(c => c.Products)
-                .HasForeignKey(p => p.ClientId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .HasForeignKey(p => p.ClientId);
+
 
             modelBuilder.Entity<Product>()
                 .HasOne(p => p.Store)
                 .WithMany(s => s.Products)
-                .HasForeignKey(p => p.StoreId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .HasForeignKey(p => p.StoreId);
 
-            modelBuilder.Entity<Store>().HasData(new Store { Id = 1, Name = "TechShop" });
 
             modelBuilder.Entity<Client>().HasData(new Client
             {
@@ -49,6 +47,22 @@ namespace Homework2SqlWithCSharp
                 Birthdate = new DateTime(1990, 1, 1),
                 StoreId = 1
             });
+            modelBuilder.Entity<Product>().HasData(new Product
+            {
+                Id = 1, 
+                Brand = "Apple",
+                Model = "X max",
+                Price = 14000, 
+                Year = 2024, 
+                ClientId = 1,
+                StoreId = 1
+            });
+            modelBuilder.Entity<Store>().HasData(new Store
+            {
+                Id = 1,
+                Name = "Jabko"
+            });
+
         }
 
 
